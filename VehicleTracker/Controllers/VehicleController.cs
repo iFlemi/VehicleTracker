@@ -33,5 +33,13 @@ namespace VehicleTracker.Controllers
             var model = await _vehicleService.GetVehicle(guid);
             return model;
         }
+
+        [Route("UpdateVehicle")]
+        [HttpPut]
+        public async Task<ActionResult<VehicleModel>> UpdateVehicle([FromBody]UpdateVehicleRequest body)
+        {
+            var model = await _vehicleService.UpdateVehicle(body);
+            return model;
+        }
     }
 }

@@ -14,6 +14,7 @@ using VehicleTracker.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using VehicleTracker.Services;
 using VehicleTracker.Services.Impl;
+using VehicleTracker.DataAccess.Impl;
 
 namespace VehicleTracker
 {

@@ -7,5 +7,6 @@ namespace VehicleTracker.DataAccess
     {
         public Task<VehicleDAO> CreateVehicle(VehicleDAO dao);
         public Task<VehicleDAO> GetVehicle(string guid);
+        public Task<VehicleDAO> UpdateVehicle(VehicleDAO dao);
     }
 }

@@ -9,5 +9,7 @@ namespace VehicleTracker.Services
     {
         Task<VehicleModel> CreateVehicle(CreateVehicleRequest createVehicleRequest);
         Task<VehicleModel> GetVehicle(Guid guid);
+        Task<VehicleModel> UpdateVehicle(UpdateVehicleRequest updateVehicleRequest);
+
     }
 }

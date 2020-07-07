@@ -22,6 +22,14 @@ namespace VehicleTrackerTests
         {
             return vehicles[guid];
         }
+
+        public async Task<VehicleDAO> UpdateVehicle(VehicleDAO daoForUpdate)
+        {
+            var vehicle = vehicles[daoForUpdate.guid];
+            vehicle.registration = daoForUpdate.registration;
+            vehicles[daoForUpdate.guid] = vehicle;
+            return vehicle;
+        }
     }
 #pragma warning restore CS1998 //Async method lacks 'await' operators and will run synchronously
 

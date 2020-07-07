@@ -38,5 +38,20 @@ namespace VehicleTrackerTests
 
             Assert.AreEqual(vehicle.guid, returnedVehicle.guid);
         }
+
+        [Test]
+        public void UpdateVehicleRegistration()
+        {
+            var rego = "GHI789";
+            var createRequest = new CreateVehicleRequest { registration = rego };
+            var vehicleToCreate = _vehicleService.CreateVehicle(createRequest).Result;
+            var createdVehicle = _vehicleService.GetVehicle(vehicleToCreate.guid).Result;
+
+            var updatedRego = "JKL012";
+            var updateVehicleRequest = new UpdateVehicleRequest { guid = createdVehicle.guid, registration = updatedRego };
+            var updatedVehicle = _vehicleService.UpdateVehicle(updateVehicleRequest).Result;
+
+            Assert.AreEqual(updatedRego, updatedVehicle.registration);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using VehicleTracker.DataAccess.DAO;
 
-namespace VehicleTracker.DataAccess
+namespace VehicleTracker.DataAccess.Impl
 {
     public class VTContext : DbContext, IVTContext
     {
@@ -23,6 +23,13 @@ namespace VehicleTracker.DataAccess
         {
             var vehicle = await Vehicles.FirstOrDefaultAsync(v => v.guid == guid);
             return vehicle;
+        }
+
+        public async Task<VehicleDAO> UpdateVehicle(VehicleDAO dao)
+        {
+            Vehicles.Update(dao);
+            await SaveChangesAsync();
+            return dao;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
