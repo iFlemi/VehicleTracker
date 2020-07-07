@@ -18,6 +18,19 @@ namespace VehicleTrackerTests
             return dao;
         }
 
+        public async Task<bool> DeleteVehicle(Guid guid)
+        {
+            try
+            {
+                vehicles.Remove(guid.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<VehicleDAO> GetVehicle(string guid)
         {
             return vehicles[guid];

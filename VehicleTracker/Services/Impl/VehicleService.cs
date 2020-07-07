@@ -29,6 +29,12 @@ namespace VehicleTracker.Services.Impl
             return dao.ToVehicleModel();
         }
 
+        public async Task<bool> DeleteVehicle(Guid guid)
+        {
+            bool success = await _context.DeleteVehicle(guid);
+            return success;
+        }
+
         public async Task<VehicleModel> GetVehicle(Guid guid)
         {
             var dao = await _context.GetVehicle(guid.ToString());

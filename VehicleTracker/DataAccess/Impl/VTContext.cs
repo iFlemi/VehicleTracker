@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using VehicleTracker.DataAccess.DAO;
 
@@ -17,6 +18,19 @@ namespace VehicleTracker.DataAccess.Impl
             Vehicles.Add(dao);
             await SaveChangesAsync();
             return dao;
+        }
+
+        public async Task<bool> DeleteVehicle(Guid guid)
+        {
+            try
+            {
+                var vehicleToDelete = await Vehicles.FirstOrDefaultAsync(v => v.guid == guid.ToString());
+                Vehicles.Remove(vehicleToDelete);
+                await SaveChangesAsync();
+                return true;
+            }  catch {
+                return false;
+            }
         }
 
         public async Task<VehicleDAO> GetVehicle(string guid)

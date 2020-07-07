@@ -53,5 +53,17 @@ namespace VehicleTrackerTests
 
             Assert.AreEqual(updatedRego, updatedVehicle.registration);
         }
+
+        [Test]
+        public void DeleteVehicle()
+        {
+            var rego = "MNO345";
+            var createRequest = new CreateVehicleRequest { registration = rego };
+            var vehicleToCreate = _vehicleService.CreateVehicle(createRequest).Result;
+            var createdVehicle = _vehicleService.GetVehicle(vehicleToCreate.guid).Result;
+
+            var successfullyDeleted = _vehicleService.DeleteVehicle(createdVehicle.guid).Result;
+            Assert.IsTrue(successfullyDeleted);
+        }
     }
 }

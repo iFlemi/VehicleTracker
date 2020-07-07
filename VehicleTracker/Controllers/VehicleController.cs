@@ -41,5 +41,13 @@ namespace VehicleTracker.Controllers
             var model = await _vehicleService.UpdateVehicle(body);
             return model;
         }
+        
+        [Route("DeleteVehicle")]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteVehicle(Guid guid)
+        {
+            bool deleted = await _vehicleService.DeleteVehicle(guid);
+            return deleted ? Ok() : StatusCode(500);
+        }
     }
 }
