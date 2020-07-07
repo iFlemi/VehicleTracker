@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VehicleTracker.DataAccess.DAO;
 
@@ -37,6 +38,12 @@ namespace VehicleTracker.DataAccess.Impl
         {
             var vehicle = await Vehicles.FirstOrDefaultAsync(v => v.guid == guid);
             return vehicle;
+        }
+
+        public async Task<IEnumerable<VehicleDAO>> GetAllVehicles()
+        {
+            var vehicles = await Vehicles.ToListAsync();//Assumption: paging not required.
+            return vehicles;
         }
 
         public async Task<VehicleDAO> UpdateVehicle(VehicleDAO daoToUpdate)

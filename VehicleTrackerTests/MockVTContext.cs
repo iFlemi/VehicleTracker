@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.DataAccess;
@@ -34,6 +35,11 @@ namespace VehicleTrackerTests
         public async Task<VehicleDAO> GetVehicle(string guid)
         {
             return vehicles[guid];
+        }
+
+        public async Task<IEnumerable<VehicleDAO>> GetAllVehicles()
+        {
+            return vehicles.Select(v => v.Value);
         }
 
         public async Task<VehicleDAO> UpdateVehicle(VehicleDAO daoForUpdate)
