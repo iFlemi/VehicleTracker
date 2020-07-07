@@ -24,8 +24,14 @@ namespace VehicleTracker.Services.Impl
                 registration = createVehicleRequest.registration,
                 guid = Guid.NewGuid().ToString()
             };
-            await _context.CreateVehicle(dao);
 
+            await _context.CreateVehicle(dao);
+            return dao.ToVehicleModel();
+        }
+
+        public async Task<VehicleModel> GetVehicle(string guid)
+        {
+            var dao = await _context.GetVehicle(guid);
             return dao.ToVehicleModel();
         }
     }

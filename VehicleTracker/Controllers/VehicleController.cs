@@ -26,5 +26,12 @@ namespace VehicleTracker.Controllers
             var model = await _vehicleService.CreateVehicle(body);
             return model;
         }
+
+        [Route("GetVehicle")]
+        [HttpGet]
+        public async Task<ActionResult<VehicleModel>> GetVehicle(string guid) {
+            var model = await _vehicleService.GetVehicle(guid);
+            return model;
+        }
     }
 }

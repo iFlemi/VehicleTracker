@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using VehicleTracker.DataAccess;
 using VehicleTracker.Models.Request;
 using VehicleTracker.Services;
@@ -25,6 +26,17 @@ namespace VehicleTrackerTests
             var vehicle = _vehicleService.CreateVehicle(request).Result;
 
             Assert.AreEqual(rego, vehicle.registration);
+        }
+
+        [Test]
+        public void GetVehicleByGuid()
+        {
+            var rego = "DEF456";
+            var createRequest = new CreateVehicleRequest { registration = rego };
+            var vehicle = _vehicleService.CreateVehicle(createRequest).Result;
+            var returnedVehicle = _vehicleService.GetVehicle(vehicle.guid).Result;
+
+            Assert.AreEqual(vehicle.guid, returnedVehicle.guid);
         }
     }
 }

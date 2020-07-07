@@ -7,5 +7,6 @@ namespace VehicleTracker.Services
     public interface IVehicleService
     {
         Task<VehicleModel> CreateVehicle(CreateVehicleRequest createVehicleRequest);
+        Task<VehicleModel> GetVehicle(string guid);
     }
 }
