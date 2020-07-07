@@ -8,6 +8,6 @@ namespace VehicleTracker.Models
     public class VehicleModel
     {
         public string registration { get; set; }
-        public string guid { get; set; }
+        public Guid guid { get; set; }
     }
 }

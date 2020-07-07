@@ -21,7 +21,7 @@ namespace VehicleTracker.DataAccess.DAO
             return new VehicleModel
             {
                 registration = this.registration,
-                guid = this.guid.ToString()
+                guid = Guid.Parse(this.guid)
             };
         } 
     }
