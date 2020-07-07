@@ -39,11 +39,12 @@ namespace VehicleTracker.DataAccess.Impl
             return vehicle;
         }
 
-        public async Task<VehicleDAO> UpdateVehicle(VehicleDAO dao)
+        public async Task<VehicleDAO> UpdateVehicle(VehicleDAO daoToUpdate)
         {
-            Vehicles.Update(dao);
+            Vehicles.Update(daoToUpdate);
             await SaveChangesAsync();
-            return dao;
+            var updatedDao = await Vehicles.FirstOrDefaultAsync(v => v.guid == daoToUpdate.guid);
+            return updatedDao;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
