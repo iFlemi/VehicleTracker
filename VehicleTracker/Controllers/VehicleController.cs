@@ -29,7 +29,7 @@ namespace VehicleTracker.Controllers
 
         [Route("GetVehicle")]
         [HttpGet]
-        public async Task<ActionResult<VehicleModel>> GetVehicle(string guid) {
+        public async Task<ActionResult<VehicleModel>> GetVehicle(Guid guid) {
             var model = await _vehicleService.GetVehicle(guid);
             return model;
         }

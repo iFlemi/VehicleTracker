@@ -29,9 +29,9 @@ namespace VehicleTracker.Services.Impl
             return dao.ToVehicleModel();
         }
 
-        public async Task<VehicleModel> GetVehicle(string guid)
+        public async Task<VehicleModel> GetVehicle(Guid guid)
         {
-            var dao = await _context.GetVehicle(guid);
+            var dao = await _context.GetVehicle(guid.ToString());
             return dao.ToVehicleModel();
         }
     }

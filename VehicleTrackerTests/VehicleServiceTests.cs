@@ -34,7 +34,7 @@ namespace VehicleTrackerTests
             var rego = "DEF456";
             var createRequest = new CreateVehicleRequest { registration = rego };
             var vehicle = _vehicleService.CreateVehicle(createRequest).Result;
-            var returnedVehicle = _vehicleService.GetVehicle(vehicle.guid).Result;
+            var returnedVehicle = _vehicleService.GetVehicle(Guid.Parse(vehicle.guid)).Result;
 
             Assert.AreEqual(vehicle.guid, returnedVehicle.guid);
         }
