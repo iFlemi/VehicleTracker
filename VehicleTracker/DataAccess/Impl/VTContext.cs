@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.DataAccess.DAO;
 
@@ -13,6 +14,13 @@ namespace VehicleTracker.DataAccess.Impl
         }
 
         public DbSet<VehicleDAO> Vehicles { get; set; }
+        public DbSet<TemperatureSensorDAO> TemperatureSensors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleDAO>().ToTable("Vehicles");
+            modelBuilder.Entity<TemperatureSensorDAO>().ToTable("TemperatureSensors");
+        }
 
         public async Task<VehicleDAO> CreateVehicle(VehicleDAO dao)
         {
@@ -54,9 +62,13 @@ namespace VehicleTracker.DataAccess.Impl
             return updatedDao;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public async Task<TemperatureSensorDAO> GetLatestTemperatureForVehicle(string guid)
         {
-            modelBuilder.Entity<VehicleDAO>().ToTable("Vehicles");
+            var dao = await TemperatureSensors
+                .Where(s => s.vehicleGuid == guid)
+                .OrderByDescending(s => s.observedAt)
+                .FirstOrDefaultAsync();
+            return dao;
         }
     }
 }

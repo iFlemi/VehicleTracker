@@ -49,6 +49,11 @@ namespace VehicleTrackerTests
             vehicles[daoForUpdate.guid] = vehicle;
             return vehicle;
         }
+
+        public async Task<TemperatureSensorDAO> GetLatestTemperatureForVehicle(string guid)
+        {
+            return new TemperatureSensorDAO { vehicleGuid = guid, observedAt = DateTime.Now, temperatureC = 10.00m };
+        }
     }
 #pragma warning restore CS1998 //Async method lacks 'await' operators and will run synchronously
 
