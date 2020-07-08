@@ -19,11 +19,19 @@ namespace VehicleTracker.Controllers
             _sensorService = sensorService;
         }
 
-        [Route("GetSensorDataForVehicle")]
+        [Route("GetTemperatureForVehicle")]
         [HttpGet]
         public async Task<ActionResult<TemperatureSensorModel>> GetTemperatureForVehicle(Guid vehicleGuid) {
             var model = await _sensorService.GetLatestTemperatureForVehicle(vehicleGuid);
             return model;
+        }
+
+        [Route("GetTemperaturesForVehicles")]
+        [HttpPost]
+        public async Task<ActionResult<TemperatureSensorModel[]>> GetTemperaturesForVehicles([FromBody]GetTemperatureForVehiclesRequest body)
+        {
+            var model = await _sensorService.GetLatestTemperatureForVehicles(body.vehicleGuids);
+            return model.ToArray();
         }
     }
 }

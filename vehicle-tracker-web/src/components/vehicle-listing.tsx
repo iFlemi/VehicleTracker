@@ -6,16 +6,22 @@ import AddVehicleModal from './add-vehicle-modal'
 import {Button, Table} from 'react-bootstrap'
 import UpdateVehicleModal from './update-vehicle-modal'
 import { prependOnceListener } from 'process'
+import { TemperatureSensor } from '../models/TemperatureSensor'
+import TemperatureSensorServiceAdapter from '../adapters/TemperatureSensorServiceAdapter'
 
 const VehicleListing:FunctionComponent = () => {    
     const [vehicles, setVehicles] = useState(Vector.empty<Vehicle>())
     const [showModal, setShowModal] = useState(false)
-    const [vehicleToUpdate, setVehicleToUpdate] = useState(Option.none<Vehicle>());
+    const [vehicleToUpdate, setVehicleToUpdate] = useState(Option.none<Vehicle>())
+    const [temperatures, setTemperatures] = useState(Vector.empty<TemperatureSensor>())
 
     useEffect(() => {
         const load = async () => {
             const vehicleResponses = await VehicleAdapter.getVehicles()
+            const vehicleGuids = vehicleResponses.map(v => v.guid).toArray();
+            const temperatureResponses = await TemperatureSensorServiceAdapter.getTemperaturesForVehicles(vehicleGuids)
             setVehicles(vehicleResponses)
+            setTemperatures(temperatureResponses)
         }
         load()
     }, []);
@@ -45,6 +51,11 @@ const VehicleListing:FunctionComponent = () => {
     const handleOpen = () => { setShowModal(true) }
     const handleClose = () => { setShowModal(false) }
 
+    const getTempForGuid = (guid:string) => {
+        const temp = temperatures.find(t => t.vehicleGuid == guid);
+        return temp.map(t => t.temperatureC.toString()).getOrElse("");
+    }
+
     return (
     <div>
         <AddVehicleModal 
@@ -68,6 +79,7 @@ const VehicleListing:FunctionComponent = () => {
                     <th>Make</th>
                     <th>Model</th>
                     <th>Year</th>
+                    <th>Temperature</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -80,6 +92,7 @@ const VehicleListing:FunctionComponent = () => {
                     <td>{v.make}</td>
                     <td>{v.model}</td> 
                     <td>{v.year}</td>
+                    <td>{getTempForGuid(v.guid)}</td>
                     <td><Button size="sm" onClick={() => updateButtonClick(v)}>UPDATE</Button></td>
                     <td><Button size="sm" variant="danger" onClick={() => deleteButtonClick(v.guid)}>DELETE</Button></td>
                 </tr>

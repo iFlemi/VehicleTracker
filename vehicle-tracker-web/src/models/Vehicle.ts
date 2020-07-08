@@ -5,5 +5,5 @@ export interface Vehicle
     registration: string,
     make: string,
     model: string,
-    year: number
+    year: number,
 }

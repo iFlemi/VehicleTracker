@@ -54,6 +54,15 @@ namespace VehicleTrackerTests
         {
             return new TemperatureSensorDAO { vehicleGuid = guid, observedAt = DateTime.Now, temperatureC = 10.00m };
         }
+
+        public async Task<IEnumerable<TemperatureSensorDAO>> GetLatestTemperaturesForVehicles(IEnumerable<string> guids)
+        {
+            var temps = new List<TemperatureSensorDAO>();
+            foreach (var guid in guids)
+                temps.Add(new TemperatureSensorDAO { vehicleGuid = guid, observedAt = DateTime.Now, temperatureC = 10.00m });
+
+            return temps;
+        }
     }
 #pragma warning restore CS1998 //Async method lacks 'await' operators and will run synchronously
 

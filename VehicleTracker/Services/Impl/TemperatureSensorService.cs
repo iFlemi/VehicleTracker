@@ -21,7 +21,13 @@ namespace VehicleTracker.Services.Impl
         public async Task<TemperatureSensorModel> GetLatestTemperatureForVehicle(Guid vehicleGuid)
         {
             var dao = await _context.GetLatestTemperatureForVehicle(vehicleGuid.ToString());
-            return dao.ToSensorModel();
+            return dao?.ToSensorModel();
+        }
+
+        public async Task<IEnumerable<TemperatureSensorModel>> GetLatestTemperatureForVehicles(IEnumerable<Guid> vehicleGuids)
+        {
+            var daos = await _context.GetLatestTemperaturesForVehicles(vehicleGuids.Select(g => g.ToString()));
+            return daos.Select(d => d.ToSensorModel());
         }
     }
 }

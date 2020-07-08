@@ -19,7 +19,7 @@ namespace VehicleTracker.DataAccess.Impl
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<VehicleDAO>().ToTable("Vehicles");
-            modelBuilder.Entity<TemperatureSensorDAO>().ToTable("TemperatureSensors");
+            modelBuilder.Entity<TemperatureSensorDAO>().ToTable("TemperatureSensors").HasKey(t => new { t.vehicleGuid, t.observedAt });
         }
 
         public async Task<VehicleDAO> CreateVehicle(VehicleDAO dao)
@@ -69,6 +69,20 @@ namespace VehicleTracker.DataAccess.Impl
                 .OrderByDescending(s => s.observedAt)
                 .FirstOrDefaultAsync();
             return dao;
+        }
+
+        public async Task<IEnumerable<TemperatureSensorDAO>> GetLatestTemperaturesForVehicles(IEnumerable<string> guids)
+        {
+            var guidsLookup = guids.ToHashSet();
+            var daos = await TemperatureSensors
+                .Where(t => guidsLookup.Contains(t.vehicleGuid))
+                .ToListAsync();
+
+            //we only want the lastest one:
+            var grouped = daos.GroupBy(t => t.vehicleGuid);
+            var allForGroup = grouped.Select(g => g.OrderByDescending(d => d.observedAt));
+            var onlyLastest = allForGroup.Select(x => x.FirstOrDefault());
+            return onlyLastest;
         }
     }
 }

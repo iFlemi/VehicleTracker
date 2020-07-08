@@ -40,6 +40,8 @@ namespace VehicleTracker
             services.AddDbContext<IVTContext, VTContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IVehicleService, VehicleService>();
+            services.AddTransient<ITemperatureSensorService, TemperatureSensorService>();
+
 
             services.AddControllers();
         }

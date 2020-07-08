@@ -9,5 +9,7 @@ namespace VehicleTracker.Services
     public interface ITemperatureSensorService
     {
         Task<TemperatureSensorModel> GetLatestTemperatureForVehicle(Guid vehicleGuid);
+        Task<IEnumerable<TemperatureSensorModel>> GetLatestTemperatureForVehicles(IEnumerable<Guid> vehicleGuid);
+
     }
 }

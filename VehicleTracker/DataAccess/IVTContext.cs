@@ -13,5 +13,7 @@ namespace VehicleTracker.DataAccess
         public Task<VehicleDAO> UpdateVehicle(VehicleDAO dao);
         public Task<bool> DeleteVehicle(Guid guid);
         public Task<TemperatureSensorDAO> GetLatestTemperatureForVehicle(string guid);
+        public Task<IEnumerable<TemperatureSensorDAO>> GetLatestTemperaturesForVehicles(IEnumerable<string> guids);
+
     }
 }
