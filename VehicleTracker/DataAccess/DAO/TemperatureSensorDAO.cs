@@ -12,7 +12,6 @@ namespace VehicleTracker.DataAccess.DAO
         [Required]
         [Key]
         public string vehicleGuid { get; set; }
-        [Key]
         public DateTime observedAt { get; set; }
 
         public decimal? temperatureC { get; set; }
