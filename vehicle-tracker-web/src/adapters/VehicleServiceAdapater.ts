@@ -2,8 +2,8 @@ import { Vehicle } from '../models/Vehicle'
 import axios from 'axios'
 import {Vector} from 'prelude-ts'
 
-const localUrl = "https://localhost:44380/vehicle/"
-
+//const localUrl = "https://localhost:44380/vehicle/"
+const localUrl = "https://vehicletracker.azurewebsites.net/vehicle/"
 
 const VehicleServiceAdapter = { 
   getVehicles: async () => {
