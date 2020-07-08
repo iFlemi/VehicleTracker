@@ -27,13 +27,11 @@ const VehicleServiceAdapter = {
    }
   },
 
-  createVehicle: async(rego:string) => {
+  createVehicle: async(vehicle:Vehicle) => {
     try {
       const response = await axios.post<Vehicle>(
         `${localUrl}createVehicle`,
-        {
-          registration: rego,
-        }
+        vehicle
       );
       return response.data
     } catch(error){

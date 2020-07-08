@@ -9,5 +9,8 @@ namespace VehicleTracker.Models
     {
         public string registration { get; set; }
         public Guid guid { get; set; }
+        public string make { get; set; }
+        public string model { get; set; }
+        public int year { get; set; }
     }
 }

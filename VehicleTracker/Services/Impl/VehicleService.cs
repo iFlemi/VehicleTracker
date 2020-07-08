@@ -52,6 +52,9 @@ namespace VehicleTracker.Services.Impl
         {
             var dao = await _context.GetVehicle(updateVehicleRequest.guid.ToString());
             dao.registration = updateVehicleRequest.registration;
+            dao.make = updateVehicleRequest.make;
+            dao.model = updateVehicleRequest.model;
+            dao.year = updateVehicleRequest.year;
 
             var updatedDao = await _context.UpdateVehicle(dao);
             return updatedDao.ToVehicleModel();

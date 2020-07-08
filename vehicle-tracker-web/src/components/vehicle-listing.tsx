@@ -65,6 +65,9 @@ const VehicleListing:FunctionComponent = () => {
                 <tr>
                     <th>Guid</th>
                     <th>Registration</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -73,7 +76,10 @@ const VehicleListing:FunctionComponent = () => {
                 {vehicles.map(v => 
                 <tr> 
                     <td>{v.guid}</td>
-                    <td>{v.registration}</td> 
+                    <td>{v.registration}</td>
+                    <td>{v.make}</td>
+                    <td>{v.model}</td> 
+                    <td>{v.year}</td>
                     <td><Button size="sm" onClick={() => updateButtonClick(v)}>UPDATE</Button></td>
                     <td><Button size="sm" variant="danger" onClick={() => deleteButtonClick(v.guid)}>DELETE</Button></td>
                 </tr>

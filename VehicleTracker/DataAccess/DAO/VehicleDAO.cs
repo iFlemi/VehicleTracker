@@ -12,16 +12,23 @@ namespace VehicleTracker.DataAccess.DAO
         [Required]
         [Key]
         public string guid { get; set; }
-
         [MaxLength(10)]
         public string registration { get; set; }
+        [MaxLength(50)]
+        public string make { get; set; }
+        [MaxLength(50)]
+        public string model { get; set; }
+        public int? year { get; set; }
 
         public VehicleModel ToVehicleModel()
         {
             return new VehicleModel
             {
                 registration = this.registration,
-                guid = Guid.Parse(this.guid)
+                guid = Guid.Parse(this.guid),
+                make = this.make,
+                model = this.model,
+                year = this.year ?? 0
             };
         } 
     }
