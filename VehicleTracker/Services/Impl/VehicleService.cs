@@ -22,6 +22,9 @@ namespace VehicleTracker.Services.Impl
         {
             var dao = new VehicleDAO {
                 registration = createVehicleRequest.registration,
+                make = createVehicleRequest.make,
+                model = createVehicleRequest.model,
+                year = createVehicleRequest.year,
                 guid = Guid.NewGuid().ToString()
             };
 
