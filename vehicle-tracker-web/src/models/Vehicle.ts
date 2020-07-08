@@ -1,5 +1,5 @@
 
-export interface VehicleResponse
+export interface Vehicle
 {
     guid: string,
     registration: string
