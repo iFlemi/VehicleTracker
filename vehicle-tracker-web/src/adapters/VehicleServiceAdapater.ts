@@ -4,6 +4,7 @@ import {Vector} from 'prelude-ts'
 
 const localUrl = "https://localhost:44380/vehicle/"
 
+
 const VehicleServiceAdapter = { 
   getVehicles: async () => {
     try {
@@ -34,7 +35,20 @@ const VehicleServiceAdapter = {
           registration: rego,
         }
       );
-      return response.data;
+      return response.data
+    } catch(error){
+      console.error(error)
+      throw new Error(error)
+    }
+  },
+
+  updateVehicle: async(vehicle:Vehicle) => {
+    try {
+      const response = await axios.put<Vehicle>(
+        `${localUrl}updateVehicle`,
+        vehicle,
+      );
+      return response.data
     } catch(error){
       console.error(error)
       throw new Error(error)
